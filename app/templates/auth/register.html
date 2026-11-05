@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %} Register| Login Logout App {% endblock %}
+
+{% block content %}
+{% if message %}
+    <div class="alert alert-success text-center">
+        <h5>Registration Successful!</h5>
+        <p>{{ message }}</p>
+        <a href="{{ url_for('login_page') }}"
+           class="btn btn-success">
+            Go to Login
+        </a>
+    </div>
+{% else %}
+
+    <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h3 text-center mb-4">Create an Account</h1>
+                {% if message %}
+                <div class="alert alert-success">
+                  {{ message }}
+                </div>
+                {% endif %}
+
+                <p class="text-center text-muted">
+                    Register to get started.
+                </p>
+
+                <form action="/register" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-control"
+                            placeholder="Enter your name"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Register
+                    </button>
+                </form>
+
+                <p class="text-center mt-3 mb-0">
+                    Already registered?
+                    <a href="{{ url_for('login_page') }}">Log in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+{% endblock %}
