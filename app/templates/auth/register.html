@@ -37,9 +37,15 @@
                             id="name"
                             name="name"
                             class="form-control"
+                            value="{{ form_data.get('name', '') }}"
                             placeholder="Enter your name"
                             required
                         >
+                        {% if errors and errors.get('name') %}
+                            <div class="text-danger">
+                               {{ errors.get('name') }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="mb-3">
@@ -49,9 +55,15 @@
                             id="email"
                             name="email"
                             class="form-control"
+                            value="{{ form_data.get('email', '') }}"
                             placeholder="you@example.com"
                             required
                         >
+                        {% if errors and errors.get('email') %}
+                           <div class="text-danger">
+                               {{ errors.get('email') }}
+                           </div>
+                        {% endif %}
                     </div>
 
                     <div class="mb-3">
@@ -64,12 +76,18 @@
                             placeholder="Create a password"
                             required
                         >
+                        {% if errors and errors.get('password') %}
+                          <div class="text-danger">
+                            {{ errors.get('password') }}
+                          </div>
+                        {% endif %}
 
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">
                         Register
                     </button>
+                    
                 </form>
 
                 <p class="text-center mt-3 mb-0">

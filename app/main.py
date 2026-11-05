@@ -29,14 +29,50 @@ def register_page(request: Request):
 @app.post("/register")
 def register(
     request: Request,
-    name: str = Form(min_length=2, max_length=50),
-    email: str = Form(),
-    password: str = Form(min_length=8)
+    name: str = Form(default=""),
+    email: str = Form(default=""),
+    password: str = Form(default="")
 ):
+    errors = {}
+
+    #validate name
+    if not name:
+        errors["name"] = "Name is required."
+
+    #validate email
+    if not email:
+        errors["email"] = "Email is required."
+    elif "@" not in email:
+        errors["email"] = "Invalid email format."
+
+    #validate password
+    if not password:
+        errors["password"] = "Password is required."
+    elif len(password) < 8:
+        errors["password"] = "Password must be at least 8 characters long."
+
+
+    if errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="auth/register.html",
+            context= {
+                "errors": errors,
+                "form_data": {
+                    "name": name,
+                    "email": email
+                }
+            },
+            status_code=422
+        )
+
+
     return templates.TemplateResponse(
         request=request,
         name="auth/register.html",
         context={
+            "errors": {},
+            "form_data": {},
             "message": f"User {name} registered successfully with email {email}."
         }
     )
